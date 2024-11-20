@@ -1,0 +1,12 @@
+import CustomNavbar from './navbar'
+import Footer from './footer'
+ 
+export default function Layout({ children }) {
+  return (
+    <>
+      <CustomNavbar />
+      <main>{children}</main>
+      <Footer />
+    </>
+  )
+}
