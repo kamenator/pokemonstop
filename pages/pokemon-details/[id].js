@@ -1,3 +1,5 @@
+import BackButton from '../../components/back_button';
+
 export async function getServerSideProps(context) {
     // Parse id from url
     const { id } = context.query;
@@ -9,5 +11,11 @@ export async function getServerSideProps(context) {
 }
 
 export default function User({ repo }) {
-  return <p>User: {repo.species.name}</p>
+    const back_button_url = '/pokemon-directory';
+    return (
+        <>
+            <BackButton back_button_url={back_button_url} />
+            <p>User: {repo.species.name}</p>
+        </>
+      )
 }
