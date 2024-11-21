@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import styles from '../styles/Result.module.css';
+import styles from '../styles/BackButton.module.css';
 
 export default function BackButton({ back_button_url }) {
     return (
-        <div className={styles.result_navigation}>
-          <Link href={back_button_url}>{"Back"}</Link>
+        <div className={styles.back_button_container}>
+          <Link href={back_button_url}>{"←"}</Link>
         </div>
       )
 }
