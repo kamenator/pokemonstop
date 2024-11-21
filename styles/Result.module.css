@@ -1,0 +1,16 @@
+.result_container {
+  display: flex;
+  padding: 10px 20px;
+  border-style: solid;
+  border-color: #d3d3d3;
+  border-width: 1px;
+  margin-bottom: 10px;
+}
+
+.result_info {
+  flex: 1;
+}
+
+.result_navigation a {
+  text-decoration: none;
+}
