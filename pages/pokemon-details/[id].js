@@ -1,4 +1,4 @@
-import BackButton from '../../components/back_button';
+import Subheader from '../../components/subheader';
 
 export async function getServerSideProps(context) {
     // Parse id from url
@@ -11,10 +11,13 @@ export async function getServerSideProps(context) {
 }
 
 export default function User({ repo }) {
-    const back_button_url = '/pokemon-directory';
+    const subhead_info = {
+        back_button_url: '/pokemon-directory',
+        subtitle: repo.species.name,
+    }
     return (
         <>
-            <BackButton back_button_url={back_button_url} />
+            <Subheader subhead_info={subhead_info} />
             <p>User: {repo.species.name}</p>
         </>
       )
