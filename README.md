@@ -13,6 +13,7 @@ To run the game please run `npm run dev` in the top directoy after cloning the r
 
 ### Pokemon Directory
 - [P0] Allow for grouping of Pokemon by other related characteristics like: Type, Stats, Weigth, etc...
+- [P0] Graph visualization to explore relationships between Pokemon and their characteristics
 - [P0] Allow showing of different Pokemon image variations like Shiny, Front/Back, or Male/Female
 - [P1] Paginate loading list of Pokemon
 - [P1] Create a "Move" page showing Pokemon who have that move
