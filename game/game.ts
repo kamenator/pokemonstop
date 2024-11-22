@@ -1,4 +1,4 @@
-import { Actor, Engine, Color, Loader, ImageSource, vec, Timer, Scene } from "excalibur";
+import { Actor, Engine, Color, Loader, ImageSource, vec, Timer, Scene, CollisionType } from "excalibur";
 
 function getRandomPokemon({ pokemon_list }) {
     const random_pokemon_idx = pokemon_list.length - 1;
@@ -11,6 +11,11 @@ export function initialize(canvasElement: HTMLCanvasElement) {
         width: 800,
         height: 600,
     });
+}
+
+function wasPokemonClicked(pokemon_actor, click_event) {
+    return Math.abs(click_event.worldPos.y - pokemon_actor.pos.y) < 15
+        && Math.abs(click_event.worldPos.x - pokemon_actor.pos.x) < 15
 }
 
 export async function start(game: Engine, pokemon_list) {
@@ -29,29 +34,128 @@ export async function start(game: Engine, pokemon_list) {
         resources.radar_gun
     ]);
 
+    // Create Bulbasaur
     const bulbasaurSprite = resources.bulbasaur.toSprite();
     const bulbasaur = new Actor({
         x: 50,
         y: 50,
     });
     bulbasaur.graphics.add(bulbasaurSprite);
+    // Set Bulbasaur Speed
+    const bulbasaurSpeed = vec(300, 300);
+    bulbasaur.vel = bulbasaurSpeed;
+    bulbasaur.body.collisionType = CollisionType.Passive;
     game.add(bulbasaur);
 
+    // Setup Bulbasaur direction switch on hitting walls
+	bulbasaur.on("postupdate", () => {
+        // If the bulbasaur collides with the left side
+        // of the screen reverse the x velocity
+        if (bulbasaur.pos.x < bulbasaur.width / 2) {
+            bulbasaur.vel.x = bulbasaurSpeed.x;
+        }
+        
+        // If the bulbasaur collides with the right side
+        // of the screen reverse the x velocity
+        if (bulbasaur.pos.x + bulbasaur.width / 2 > game.drawWidth) {
+            bulbasaur.vel.x = bulbasaurSpeed.x * -1;
+        }
+        
+        // If the bulbasaur collides with the top
+        // of the screen reverse the y velocity
+        if (bulbasaur.pos.y < bulbasaur.height / 2) {
+            bulbasaur.vel.y = bulbasaurSpeed.y;
+        }
+
+        // If the bulbasaur collides with the top
+        // of the screen reverse the y velocity
+        if (bulbasaur.pos.y + bulbasaur.height / 2 > game.drawHeight) {
+            bulbasaur.vel.y = bulbasaurSpeed.y * -1;
+        }
+    });
+    
+
+    // Charmander
     const charmanderSprite = resources.charmander.toSprite();
     const charmander = new Actor({
         x: 50,
         y: 500,
     });
     charmander.graphics.add(charmanderSprite);
+    // Set charmander Speed
+    const charmanderSpeed = vec(300, 300);
+    charmander.vel = charmanderSpeed;
+    charmander.body.collisionType = CollisionType.Passive;
     game.add(charmander);
 
+    // Setup charmander direction switch on hitting walls
+    charmander.on("postupdate", () => {
+       // If the charmander collides with the left side
+       // of the screen reverse the x velocity
+       if (charmander.pos.x < charmander.width / 2) {
+           charmander.vel.x = charmanderSpeed.x;
+       }
+       
+       // If the charmander collides with the right side
+       // of the screen reverse the x velocity
+       if (charmander.pos.x + charmander.width / 2 > game.drawWidth) {
+           charmander.vel.x = charmanderSpeed.x * -1;
+       }
+       
+       // If the charmander collides with the top
+       // of the screen reverse the y velocity
+       if (charmander.pos.y < charmander.height / 2) {
+           charmander.vel.y = charmanderSpeed.y;
+       }
+
+       // If the charmander collides with the top
+       // of the screen reverse the y velocity
+       if (charmander.pos.y + charmander.height / 2 > game.drawHeight) {
+           charmander.vel.y = charmanderSpeed.y * -1;
+       }
+    });
+
+    // Squirtle
     const squirtleSprite = resources.squirtle.toSprite();
     const squirtle = new Actor({
         x: 500,
         y: 50,
     });
     squirtle.graphics.add(squirtleSprite);
+    // Set squirtle Speed
+    const squirtleSpeed = vec(300, 300);
+    squirtle.vel = squirtleSpeed;
+    squirtle.body.collisionType = CollisionType.Passive;
     game.add(squirtle);
+
+    // Setup squirtle direction switch on hitting walls
+    squirtle.on("postupdate", () => {
+       // If the squirtle collides with the left side
+       // of the screen reverse the x velocity
+       if (squirtle.pos.x < squirtle.width / 2) {
+           squirtle.vel.x = squirtleSpeed.x;
+       }
+       
+       // If the squirtle collides with the right side
+       // of the screen reverse the x velocity
+       if (squirtle.pos.x + squirtle.width / 2 > game.drawWidth) {
+           squirtle.vel.x = squirtleSpeed.x * -1;
+       }
+       
+       // If the squirtle collides with the top
+       // of the screen reverse the y velocity
+       if (squirtle.pos.y < squirtle.height / 2) {
+           squirtle.vel.y = squirtleSpeed.y;
+       }
+
+       // If the squirtle collides with the top
+       // of the screen reverse the y velocity
+       if (squirtle.pos.y + squirtle.height / 2 > game.drawHeight) {
+           squirtle.vel.y = squirtleSpeed.y * -1;
+       }
+
+       // TODO Add you win sign if all pokemon are caught
+    });
 
     const radar_gunSprite = resources.radar_gun.toSprite();
     const radar_gun = new Actor({
@@ -67,6 +171,24 @@ export async function start(game: Engine, pokemon_list) {
         radar_gun.pos.y = evt.worldPos.y + 16;
     });
 
+    // Add a mouse move listener for click
+    game.input.pointers.primary.on("down", (evt) => {
+        const xClick = evt.worldPos.x;
+        const yClick = evt.worldPos.y;
+
+        if (wasPokemonClicked(squirtle, evt)) {
+            alert("You gave squirtle a ticket!");
+            squirtle.kill();
+        }
+        if (wasPokemonClicked(bulbasaur, evt)) {
+            alert("You gave bulbasaur a ticket!");
+            bulbasaur.kill();
+        }
+        if (wasPokemonClicked(charmander, evt)) {
+            alert("You gave charmander a ticket!");
+            charmander.kill();
+        }
+    });
 
     // Start the game
     await game.start(loader);
