@@ -5,11 +5,14 @@ Detective Pikachu need your help to stopping speeding Pokemon!
 
 To run the game please run `npm run dev` in the top directoy after cloning the repo.
 
+To run tests please run `npm run test` in the top directoy.
+
 ## Future Wishlist
 
 ### General
 - Test coverage
 - Migrate all JS to TS
+- Add lint checker for code formatting
 
 ### Pokemon Directory
 - [P0] Allow for grouping of Pokemon by other related characteristics like: Type, Stats, Weigth, etc...
