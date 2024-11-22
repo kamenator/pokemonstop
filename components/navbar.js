@@ -24,7 +24,6 @@ export default function CustomNavbar() {
                         <li><Link href="/">Home</Link></li>
                         <li><Link href="/traffic-stops">Traffic Stops</Link></li>
                         <li><Link href="/pokemon-directory">Pokemon Directory</Link></li>
-                        <li><Link href="/about-us">About Us</Link></li>
                     </ul>
                 </div>
             }
