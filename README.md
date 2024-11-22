@@ -5,7 +5,7 @@ Detective Pikachu need your help to stopping speeding Pokemon!
 
 To run the game please run `npm run dev` in the top directoy after cloning the repo.
 
-## Future wish list
+## Future Wishlist
 
 ### General
 - Test coverage
