@@ -9,8 +9,8 @@ export function initialize(canvasElement: HTMLCanvasElement) {
 }
 
 function wasPokemonClicked(pokemon_actor, click_event) {
-    return Math.abs(click_event.worldPos.y - pokemon_actor.pos.y) < 15
-        && Math.abs(click_event.worldPos.x - pokemon_actor.pos.x) < 15
+    return Math.abs(click_event.worldPos.y - pokemon_actor.pos.y) < 12
+        && Math.abs(click_event.worldPos.x - pokemon_actor.pos.x) < 12
 }
 
 export async function start(game: Engine, pokemon_list) {

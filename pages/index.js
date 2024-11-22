@@ -24,9 +24,9 @@ export default function Home() {
             <br/><br/>
             Help detective Pikachu give out speeding tickets to keep the roads safe.
             <br/><br/><br/>
-            - Tip 1: Stop as many Pokemon as you can to get a new high score! 
+            - Tip 1: Use your radar gun to stop Pokemon by clicking on them. It's not as easy as it looks!
             <br/><br/><br/>
-            - Tip 2: Click only on the Pokemon that are speeding or else it is GAME OVER. 
+            - Tip 2: Stop all the Pokemon with your radar gun to win.
             <br/><br/>
           </div>
           <div className={styles.home_links_container}>
