@@ -16,9 +16,9 @@ export default function PokemonDirectory({ repo }) {
     }
 
     return (
-        <div className={styles.results_container}>
+        <>
             <h3>Pokemon Directory</h3>
             {results}
-        </div>
+        </>
     );
 }
