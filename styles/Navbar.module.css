@@ -23,19 +23,26 @@ https://codeburst.io/how-to-make-a-collapsible-menu-using-only-css-a1cd805b1390
   text-decoration: none;
 }
 
-.menu_checkbox {
+.menu_checkbox,  .menu_checkbox_open {
   height: 10px;
   font-size: 20px;
   line-height: 12px;
   display: block;
   cursor: pointer;
-  background-image: url('../public/menu.png');
   background-repeat: no-repeat;
   background-size: contain;
   padding: 10px 0 10px 50px;
   color: rgb(62, 62, 62);
 }
 
-.menu_checkbox svg {
+.menu_checkbox {
+  background-image: url('../public/menu.png');
+}
+
+.menu_checkbox_open {
+  background-image: url('../public/close_menu.png');
+}
+
+.menu_checkbox svg, .menu_checkbox_open svg {
   display: none;
 }

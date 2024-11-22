@@ -17,7 +17,7 @@ export default function CustomNavbar() {
     return (
         <div className={styles.collapsible_menu}>
             <Checkbox
-                className={styles.menu_checkbox}
+                className={isMenuOpen ? styles.menu_checkbox_open : styles.menu_checkbox}
                 isSelected={isMenuOpen}
                 onValueChange={setIsMenuOpen}>Menu</Checkbox>
             {isMenuOpen && 
