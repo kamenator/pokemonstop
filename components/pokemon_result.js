@@ -7,13 +7,13 @@ export default function PokemonResult({ result }) {
     const pokemon_url = `/pokemon-details/${pokemon_id}`;
 
     return (
-        <div className={styles.result_container}>
+        <Link href={pokemon_url} className={styles.result_container}>
           <div className={styles.result_info}>
             {result.name}
           </div>
           <div className={styles.result_navigation}>
-            <Link href={pokemon_url}>{">"}</Link>
+            {">"}
           </div>
-        </div>
+        </Link>
       )
 }

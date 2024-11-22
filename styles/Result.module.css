@@ -1,3 +1,7 @@
+.results_container {
+  padding: 0 20px;
+}
+
 .result_container {
   display: flex;
   padding: 10px 20px;
@@ -5,13 +9,11 @@
   border-color: #d3d3d3;
   border-width: 1px;
   margin-bottom: 10px;
+  text-decoration: none;
+  color: white;
 }
 
 .result_info {
   flex: 1;
   text-transform: capitalize;
-}
-
-.result_navigation a {
-  text-decoration: none;
 }
