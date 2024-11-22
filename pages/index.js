@@ -30,7 +30,7 @@ export default function Home() {
             <br/><br/>
           </div>
           <div className={styles.home_links_container}>
-            <Link className={styles.home_link} href="/traffic-stops">Play Game</Link>
+            <Link className={styles.home_link} href="/play-game">Play Game</Link>
             <Link className={styles.home_link} href="/pokemon-directory">Research Pokemon</Link>
           </div>
         </div>

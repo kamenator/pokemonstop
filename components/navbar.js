@@ -24,7 +24,7 @@ export default function CustomNavbar() {
                 <div className={styles.menu_content}>
                     <ul>
                         <li><Link href="/" onClick={collapseMenu}>Home</Link></li>
-                        <li><Link href="/traffic-stops" onClick={collapseMenu}>Traffic Stops</Link></li>
+                        <li><Link href="/play-game" onClick={collapseMenu}>Play Game</Link></li>
                         <li><Link href="/pokemon-directory" onClick={collapseMenu}>Pokemon Directory</Link></li>
                     </ul>
                 </div>
