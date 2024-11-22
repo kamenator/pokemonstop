@@ -25,8 +25,7 @@ https://codeburst.io/how-to-make-a-collapsible-menu-using-only-css-a1cd805b1390
 
 .menu_checkbox {
   height: 10px;
-  font-family: 'Sedgwick Ave Display', cursive;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 12px;
   display: block;
   cursor: pointer;
@@ -34,6 +33,7 @@ https://codeburst.io/how-to-make-a-collapsible-menu-using-only-css-a1cd805b1390
   background-repeat: no-repeat;
   background-size: contain;
   padding: 10px 0 10px 50px;
+  color: rgb(62, 62, 62);
 }
 
 .menu_checkbox svg {
