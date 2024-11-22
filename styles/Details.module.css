@@ -2,7 +2,7 @@
   padding: 0 20px;
   background-color: rgb(246, 245, 245);
   border: solid 1px hsl(0, 0%, 83%);
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .image_container {
@@ -25,16 +25,29 @@
 
 .info_stat_container {
   background: white;
-  min-width: 200px;
-  min-height: 100px;
+  min-width: 300px;
+  min-height: 70px;
   padding: 10px;
   border: 1px solid #d3d3d3;
   margin: 5px;
+  color: black;
+}
+
+.info_stat_container_wide {
+  background: white;
+  min-width: 100%;
+  min-height: 100px;
+  border: 1px solid #d3d3d3;
+  margin: 5px;
+  color: black;
 }
 
 .info_stat_title {
-  font-size: 22px;
+  font-size: 18px;
   text-decoration: underline;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
 }
 
 .info_stat_body {
@@ -42,10 +55,13 @@
   margin-top: 10px;
   max-height: 205px;
   overflow: scroll;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
 }
 
 .info_stat_body_item {
   margin-top: 10px;
-  font-size: 18px;
+  font-size: 14px;
   text-transform: capitalize;
 }

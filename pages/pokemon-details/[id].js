@@ -49,13 +49,13 @@ export default function User({ repo }) {
                     <img src={repo.sprites.front_default}></img>
                 </div>
                 <div className={styles.info_container}>
-                    <div className={styles.info_stat_container}>
+                    <div className={styles.info_stat_container_wide}>
                         <div className={styles.info_stat_title}>Weight</div>
                         <div className={styles.info_stat_body}>
                             <div className={styles.info_stat_body_item}>{repo.weight} kg</div>
                         </div>
                     </div>
-                    <div className={styles.info_stat_container}>
+                    <div className={styles.info_stat_container_wide}>
                         <div className={styles.info_stat_title}>Types</div>
                         <div className={styles.info_stat_body}>{types_info}</div>
                     </div>
@@ -64,7 +64,7 @@ export default function User({ repo }) {
                         <div className={styles.info_stat_body}>{stats_info}</div>
                     </div>
                     <div className={styles.info_stat_container}>
-                        <div className={styles.info_stat_title}>Moves</div>
+                        <div className={styles.info_stat_title}>Moves ({moves_info.length})</div>
                         <div className={styles.info_stat_body}>{moves_info}</div>
                     </div>
                     <div className={styles.info_stat_container}>

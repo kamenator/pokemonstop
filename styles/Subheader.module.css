@@ -1,25 +1,25 @@
 .subheader_container {
   display: flex;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .back_button_container {
   padding: 10px 0;
-  width: fit-content;
   border-width: 1px;
   border-color: #d3d3d3;
   border-style: solid;
   font-family: monospace;
-  font-size: 80px;
+  font-size: 70px;
   text-decoration: none;
-  height: 30px;
-  line-height: 20px;
+  height: 20px;
+  line-height: 10px;
   overflow: hidden;
 }
 
 .back_button_container a {
   text-decoration: none;
   padding: 0 10px;
+  color: white;
 }
 
 .subtitle_container {
