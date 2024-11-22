@@ -12,6 +12,8 @@ export default function CustomNavbar() {
         {label: 'About Us', href: 'about-us'},
     ]
 
+    const collapseMenu = () => {setIsMenuOpen(false)};
+
     return (
         <div className={styles.collapsible_menu}>
             <Checkbox
@@ -21,9 +23,9 @@ export default function CustomNavbar() {
             {isMenuOpen && 
                 <div className={styles.menu_content}>
                     <ul>
-                        <li><Link href="/">Home</Link></li>
-                        <li><Link href="/traffic-stops">Traffic Stops</Link></li>
-                        <li><Link href="/pokemon-directory">Pokemon Directory</Link></li>
+                        <li><Link href="/" onClick={collapseMenu}>Home</Link></li>
+                        <li><Link href="/traffic-stops" onClick={collapseMenu}>Traffic Stops</Link></li>
+                        <li><Link href="/pokemon-directory" onClick={collapseMenu}>Pokemon Directory</Link></li>
                     </ul>
                 </div>
             }
