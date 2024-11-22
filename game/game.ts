@@ -1,9 +1,4 @@
-import { Actor, Engine, Color, Loader, ImageSource, vec, Timer, Scene, CollisionType } from "excalibur";
-
-function getRandomPokemon({ pokemon_list }) {
-    const random_pokemon_idx = pokemon_list.length - 1;
-    return pokemon_list[random_pokemon_idx]
-}
+import { Actor, Engine, Loader, ImageSource, vec, CollisionType } from "excalibur";
 
 export function initialize(canvasElement: HTMLCanvasElement) {
     return new Engine({
@@ -25,13 +20,15 @@ export async function start(game: Engine, pokemon_list) {
         charmander: new ImageSource("/charmander.png"),
         squirtle: new ImageSource("/squirtle.png"),
         radar_gun: new ImageSource("/radar_gun.png"),
+        win: new ImageSource("/you_win.jpeg"),
     };
     const loader = new Loader([
         resources.pikachu,
         resources.bulbasaur,
         resources.charmander,
         resources.squirtle,
-        resources.radar_gun
+        resources.radar_gun,
+        resources.win,
     ]);
 
     // Create Bulbasaur
@@ -90,29 +87,29 @@ export async function start(game: Engine, pokemon_list) {
 
     // Setup charmander direction switch on hitting walls
     charmander.on("postupdate", () => {
-       // If the charmander collides with the left side
-       // of the screen reverse the x velocity
-       if (charmander.pos.x < charmander.width / 2) {
-           charmander.vel.x = charmanderSpeed.x;
-       }
-       
-       // If the charmander collides with the right side
-       // of the screen reverse the x velocity
-       if (charmander.pos.x + charmander.width / 2 > game.drawWidth) {
-           charmander.vel.x = charmanderSpeed.x * -1;
-       }
-       
-       // If the charmander collides with the top
-       // of the screen reverse the y velocity
-       if (charmander.pos.y < charmander.height / 2) {
-           charmander.vel.y = charmanderSpeed.y;
-       }
+        // If the charmander collides with the left side
+        // of the screen reverse the x velocity
+        if (charmander.pos.x < charmander.width / 2) {
+            charmander.vel.x = charmanderSpeed.x;
+        }
+        
+        // If the charmander collides with the right side
+        // of the screen reverse the x velocity
+        if (charmander.pos.x + charmander.width / 2 > game.drawWidth) {
+            charmander.vel.x = charmanderSpeed.x * -1;
+        }
+        
+        // If the charmander collides with the top
+        // of the screen reverse the y velocity
+        if (charmander.pos.y < charmander.height / 2) {
+            charmander.vel.y = charmanderSpeed.y;
+        }
 
-       // If the charmander collides with the top
-       // of the screen reverse the y velocity
-       if (charmander.pos.y + charmander.height / 2 > game.drawHeight) {
-           charmander.vel.y = charmanderSpeed.y * -1;
-       }
+        // If the charmander collides with the top
+        // of the screen reverse the y velocity
+        if (charmander.pos.y + charmander.height / 2 > game.drawHeight) {
+            charmander.vel.y = charmanderSpeed.y * -1;
+        }
     });
 
     // Squirtle
@@ -130,33 +127,32 @@ export async function start(game: Engine, pokemon_list) {
 
     // Setup squirtle direction switch on hitting walls
     squirtle.on("postupdate", () => {
-       // If the squirtle collides with the left side
-       // of the screen reverse the x velocity
-       if (squirtle.pos.x < squirtle.width / 2) {
-           squirtle.vel.x = squirtleSpeed.x;
-       }
+        // If the squirtle collides with the left side
+        // of the screen reverse the x velocity
+        if (squirtle.pos.x < squirtle.width / 2) {
+            squirtle.vel.x = squirtleSpeed.x;
+        }
        
-       // If the squirtle collides with the right side
-       // of the screen reverse the x velocity
-       if (squirtle.pos.x + squirtle.width / 2 > game.drawWidth) {
-           squirtle.vel.x = squirtleSpeed.x * -1;
-       }
-       
-       // If the squirtle collides with the top
-       // of the screen reverse the y velocity
-       if (squirtle.pos.y < squirtle.height / 2) {
-           squirtle.vel.y = squirtleSpeed.y;
-       }
+        // If the squirtle collides with the right side
+        // of the screen reverse the x velocity
+        if (squirtle.pos.x + squirtle.width / 2 > game.drawWidth) {
+            squirtle.vel.x = squirtleSpeed.x * -1;
+        }
+        
+        // If the squirtle collides with the top
+        // of the screen reverse the y velocity
+        if (squirtle.pos.y < squirtle.height / 2) {
+            squirtle.vel.y = squirtleSpeed.y;
+        }
 
-       // If the squirtle collides with the top
-       // of the screen reverse the y velocity
-       if (squirtle.pos.y + squirtle.height / 2 > game.drawHeight) {
-           squirtle.vel.y = squirtleSpeed.y * -1;
-       }
-
-       // TODO Add you win sign if all pokemon are caught
+        // If the squirtle collides with the top
+        // of the screen reverse the y velocity
+        if (squirtle.pos.y + squirtle.height / 2 > game.drawHeight) {
+            squirtle.vel.y = squirtleSpeed.y * -1;
+        }
     });
 
+    // Radar gun
     const radar_gunSprite = resources.radar_gun.toSprite();
     const radar_gun = new Actor({
         x: 500,
@@ -165,12 +161,22 @@ export async function start(game: Engine, pokemon_list) {
     radar_gun.graphics.add(radar_gunSprite);
     game.add(radar_gun);
 
+    // Win sign
+    const winSprite = resources.win.toSprite();
+    const win = new Actor({
+        x: 10000,
+        y: 10000,
+    });
+    win.graphics.add(winSprite);
+    game.add(win);
+
     // Add a mouse move listener, offset is so tip of radar gun aligns with click
     game.input.pointers.primary.on("move", (evt) => {
         radar_gun.pos.x = evt.worldPos.x - 14;
         radar_gun.pos.y = evt.worldPos.y + 16;
     });
 
+    var ticketCount = 0;
     // Add a mouse move listener for click
     game.input.pointers.primary.on("down", (evt) => {
         const xClick = evt.worldPos.x;
@@ -179,75 +185,26 @@ export async function start(game: Engine, pokemon_list) {
         if (wasPokemonClicked(squirtle, evt)) {
             alert("You gave squirtle a ticket!");
             squirtle.kill();
+            ticketCount += 1;
         }
         if (wasPokemonClicked(bulbasaur, evt)) {
             alert("You gave bulbasaur a ticket!");
             bulbasaur.kill();
+            ticketCount += 1;
         }
         if (wasPokemonClicked(charmander, evt)) {
             alert("You gave charmander a ticket!");
             charmander.kill();
+            ticketCount += 1;
+        }
+
+        // Add you win sign if all pokemon are caught
+        if (ticketCount === 3) {
+            win.pos.x = 410;
+            win.pos.y = 300;
         }
     });
 
     // Start the game
     await game.start(loader);
-
-// Create an actor
-    // const player = new Actor({
-    //     x: -20,
-    //     y: 100,
-    //     // Use a circle collider with radius 10
-    //     radius: 10,
-    //     // Set the color
-    //     color: Color.Red,
-    // });
-
-    // player.actions
-    //     .moveBy(vec(100, 0), 200)
-    //     .moveBy(vec(100, 100), 200)
-    //     .moveBy(vec(0, 100), 200)
-    //     .moveBy(vec(0, 0), 200)
-
-    // Start the serve after a second
-    // const ballSpeed = vec(200, 0);
-    // player.vel = ballSpeed;
-
-    // setTimeout(() => {
-    // // Set the velocity in pixels per second
-    // player.vel = ballSpeed;
-    // }, 1000);
-
-
-    // const scene = new Scene();
-
-    // let elapsedTime = 0;
-    
-    // scene.onPreUpdate = (engine, delta) => {
-    //   elapsedTime += delta;
-    //   if (elapsedTime >= 1000) { 
-    //     player.moveBy(vec(100, 0), 200)
-    //             .moveBy(vec(100, 100), 200)
-    //             .moveBy(vec(0, 100), 200)
-    //             .moveBy(vec(0, 0), 200)
-    //     elapsedTime = 0; 
-    //   }
-    // };
-
-    // let timer = new Timer({
-    //     interval: 1000, // 1000 milliseconds = 1 second
-    //     repeats: true, // Set to true to repeat the timer
-    //     fcn: () => {
-    //         player.actions
-    //             .moveBy(vec(100, 0), 200)
-    //             .moveBy(vec(100, 100), 200)
-    //             .moveBy(vec(0, 100), 200)
-    //             .moveBy(vec(0, 0), 200)
-    //     }
-    //   });
-
-
-
-    // Add the actor to the scene
-    // game.currentScene.add(player);
 }
