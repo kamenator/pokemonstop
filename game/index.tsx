@@ -14,7 +14,15 @@ function cleanUpPlayButtons() {
   });
 }
 
-export const Game = () => {
+export async function getServerSideProps() {
+    // Fetch data from external API
+    const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0')
+    const repo = await res.json()
+    // Pass data to the page via props
+    return { props: { repo } }
+}   
+
+export const Game = ({ repo }) => {
   const canvasRef = useRef<HTMLCanvasElement>();
   const gameRef = useRef<Engine>(null);
 
@@ -31,7 +39,7 @@ export const Game = () => {
 
     import("./game").then(({ initialize, start }) => {
       gameRef.current = initialize(canvasRef.current);
-      start(gameRef.current);
+      start(gameRef.current, []);
     });
 
     return resetGame;
